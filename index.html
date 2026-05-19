@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html>
+<!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
@@ -693,7 +693,7 @@
                 mainEditor.value = activeProject[activeProject.currentTab === 'html' ? 'codeHTML' : activeProject.currentTab === 'css' ? 'codeCSS' : 'codeJS'];
             } else {
                 previewIframe.classList.remove("active");
-                terminalConsole.add("active");
+                terminalConsole.classList.add("active");
                 
                 let extLabel = activeProject.lang.toUpperCase();
                 tabBar.innerHTML = `<div class="tab active">SOURCE.${extLabel}</div>`;
@@ -874,4 +874,4 @@
         mainEditor.addEventListener('scroll', syncHighlightScrollLayer);
     </script>
 </body>
-</html><script></script></body></html>
+</html><script></script></body></html><script></script></body></html>
