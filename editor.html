@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MatrixCode - Advanced Neon Glass IDE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+ <body>
+   <div class="orb-matrix-1"></div>
+    <div class="orb-matrix-2"></div>
+
+    <div class="splash-screen" id="splash-node">
+        <div class="binary-rain" id="binary-rain-box"></div>
+        
+        <div class="cyber-core-container">
+            <div class="cyber-ring"></div>
+            <div class="cyber-ring-inner"></div>
+            <div class="hacker-badge">
+                <div class="skull-eyes"><span></span><span></span></div>
+            </div>
+        </div>
+
+        <div class="matrix-coder-title">
+            <span class="text-white">MATRIX</span> <span class="text-red">CODER</span>
+        </div>
+
+        <div class="hacker-console" id="hacker-logs-box">> SECURE SYSTEM OVERRIDE ACTIVE...</div>
+
+        <div class="matrix-progress-title">HACKER SEQUENCE COMPILING</div>
+        <div class="matrix-progress-wrapper">
+            <div class="matrix-progress-bar-container" id="bar-blocks-node">
+                <div class="progress-block"></div><div class="progress-block"></div>
+                <div class="progress-block"></div><div class="progress-block"></div>
+                <div class="progress-block"></div><div class="progress-block"></div>
+                <div class="progress-block"></div><div class="progress-block"></div>
+                <div class="progress-block"></div><div class="progress-block"></div>
+            </div>
+            <div class="matrix-counter" id="progress-percent-node">0%</div>
+        </div>
+    </div>
+
+    <div class="dashboard" id="dashboard-node" style="display:none;">
+        <div class="dash-header">
+            <div class="dash-title">MATRIX<span>CODER</span> v0.1</div>
+            <div class="dash-controls">
+                <button class="glass-btn" onclick="openCreateModal()">+ Build Node</button>
+                 <button class="glass-btn btn-radical-red" onclick="triggerFileInput()">⚡ Inputfile 📁</button>
+                <input type="file" id="file-input" onchange="handleFileInput(event)">
+            </div>
+        </div>
+        <div class="project-grid" id="project-grid-container"></div>
+    </div>
+
+    <div class="modal-overlay" id="modal-node">
+        <div class="modal-box">
+            <div class="modal-title">Initialize Workspace Core</div>
+            <div class="form-group">
+                <label>Project Matrix Name</label>
+                <input type="text" id="modal-project-name" class="form-control" placeholder="e.g., QuantumRender_Core" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>Runtime Ecosystem</label>
+                <select id="modal-project-lang" class="form-control">
+                    <option value="hybrid">Hybrid Matrix (HTML5 + CSS3 + JS)</option>
+                    <option value="py">Python Core Engine (.py)</option>
+                    <option value="js">JavaScript Independent Runtime (.js)</option>
+                    <option value="cs">C# / .NET Stream (.cs)</option>
+                    <option value="cpp">C++ Source Stack (.cpp)</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="glass-btn btn-radical-red" style="padding: 6px 12px;" onclick="closeCreateModal()">Abort</button>
+                <button class="glass-btn" style="padding: 6px 12px;" onclick="createProjectPipeline()">Deploy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-app-shell" id="app-shell-node">
+        
+        <div class="header">
+            <button class="back-btn" onclick="returnToDashboardAndSave()">⚡ Terminal Break</button>
+            <div class="logo" id="active-project-title">MATRIXCODE // <span>PIPELINE</span></div>
+            <div class="header-controls-right">
+                <button class="glass-btn" onclick="manualRunCode()">▶ RUN</button>
+
+                <button class="eye-toggle-btn" onclick="toggleZenFocusMode(true)" title="Enter Pure Immersive View">
+                    <div class="hacker-badge"><div class="skull-eyes"><span></span><span></span></div></div>
+                </button>
+            </div>
+        </div>
+
+        <div class="floating-zen-eye" onclick="toggleZenFocusMode(false)" title="Unhide Control Rails">
+            <div class="hacker-badge"><div class="skull-eyes"><span></span><span></span></div></div>
+        </div>
+
+        <div class="workspace">
+            <div class="preview-container">
+                <iframe id="preview" class="preview-box"></iframe>
+                <div id="terminal-console" class="terminal-box"></div>
+            </div>
+
+            <div class="editor-container">
+                <div class="tab-bar">
+                    <div class="tabs-left" id="tab-bar-container"></div>
+                    <div class="search-container">
+                        <input type="text" id="code-search-bar" class="cyber-search-input" placeholder="🔍 Find word line..." oninput="searchWordLineTrace(true)">
+                        <div id="search-results-badge" class="search-results-log"></div>
+                    </div>
+                </div>
+                <div class="editor-box">
+                    <div class="line-numbers" id="line-counter"></div>
+                    <div class="editor-wrapper-inner">
+                        <div id="editor-highlight-layer" class="highlight-backdrop"></div>
+                        <textarea id="main-editor" wrap="off" spellcheck="false" oninput="liveExecutionEngine()" onscroll="syncHighlightScrollLayer()"></textarea>
+
+                        <div id="suggestion-box"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Boot loader configuration for direct index view
+        window.addEventListener("DOMContentLoaded", () => {
+            renderDashboardGrid();
+        });
+    </script>
+</body>
+</html>
