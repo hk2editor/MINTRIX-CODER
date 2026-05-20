@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html>
+<!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
@@ -263,7 +263,6 @@
         }
         .eye-toggle-btn:active { box-shadow: 0 0 15px var(--neon-red); background: rgba(255,42,42,0.1); }
         
-        /* Loading Logo spinning animation */
         .eye-toggle-btn .hacker-badge, .floating-zen-eye .hacker-badge { transform: scale(0.4); animation: spinRing 4s linear infinite; box-shadow: none; }
         .eye-toggle-btn .hacker-badge::before, .floating-zen-eye .hacker-badge::before { box-shadow: none; }
 
@@ -294,13 +293,11 @@
 
         .editor-container { display: flex; flex-direction: column; background: rgba(4, 1, 1, 0.75); overflow: hidden; }
         
-        /* Tab Bar layout */
         .tab-bar { background: rgba(0, 0, 0, 0.5); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,42,42,0.08); flex-shrink: 0; padding-right: 8px; }
         .tabs-left { display: flex; }
         .tab { padding: 8px 12px; font-size: 9px; color: var(--text-muted); font-weight: bold; white-space: nowrap; cursor: pointer; letter-spacing: 0.8px; text-transform: uppercase; }
         .tab.active { background: rgba(22,6,6,0.6); color: var(--neon-red); border-bottom: 2px solid var(--neon-red); text-shadow: 0 0 8px var(--neon-red); }
 
-        /* Cyber Search Component */
         .search-container { display: flex; flex-direction: column; align-items: flex-end; position: relative; min-width: 160px; max-width: 220px; }
         .cyber-search-input {
             width: 100%; background: rgba(20, 5, 5, 0.7); border: 1px solid rgba(255, 42, 42, 0.25);
@@ -323,9 +320,8 @@
             user-select: none; overflow: hidden; white-space: nowrap; flex-shrink: 0;
         }
         
-        .editor-wrapper-inner { flex: 1; height: 100%; position: relative; overflow: hidden; }
+        .editor-wrapper-inner { flex: 1; height: 100%; position: relative; overflow: visible; } /* FIXED OVERFLOW */
         
-        /* Highlighting overlay matching stack layout rules */
         .highlight-backdrop {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             padding: 7px 6px; font-size: 11.5px; font-family: 'Consolas', 'Courier New', monospace;
@@ -333,15 +329,14 @@
             pointer-events: none; z-index: 1; box-sizing: border-box;
         }
         
-        /* NEW: Poori line ko yellow background box aur subtle glow dene ke liye style rule */
         .line-match-highlight {
-            background: rgba(255, 215, 0, 0.22); /* Dark theme friendly Translucent Yellow */
+            background: rgba(255, 215, 0, 0.22); 
             outline: 1px solid var(--neon-gold);
             box-shadow: 0 0 10px rgba(255, 170, 0, 0.4), inset 0 0 6px rgba(255, 170, 0, 0.2);
             border-radius: 3px;
-            color: inherit; /* Asli path text color light dikhta rahe */
+            color: inherit; 
             display: inline-block;
-            width: 100%; /* Poori line span fill rule */
+            width: 100%; 
             box-sizing: border-box;
         }
 
@@ -351,6 +346,34 @@
             resize: none; outline: none; line-height: 1.45; caret-color: var(--neon-red);
             white-space: pre; overflow: auto; position: absolute; top: 0; left: 0;
             z-index: 2;
+        }
+
+        /* --- AUTO SUGGESTION SYSTEM (FIXED CSS) --- */
+        #suggestion-box {
+            position: absolute;
+            width: 220px;
+            max-height: 180px;
+            overflow-y: auto;
+            background: #0a0000;
+            border: 1px solid #ff2a2a;
+            border-radius: 8px;
+            z-index: 99999;
+            display: none;
+            box-shadow: 0 0 20px rgba(255, 42, 42, 0.4);
+        }
+
+        .suggestion-item {
+            padding: 8px 10px;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-family: Consolas;
+        }
+
+        .suggestion-item:hover {
+            background: rgba(255, 42, 42, 0.2);
+            color: #ff2a2a;
         }
 
         /* --- ZEN IMMERSIVE FULLSCREEN SYSTEM --- */
@@ -410,7 +433,7 @@
             <div class="dash-title">MATRIX<span>CODER</span> v0.1</div>
             <div class="dash-controls">
                 <button class="glass-btn" onclick="openCreateModal()">+ Build Node</button>
-                <button class="glass-btn btn-radical-red" onclick="triggerFileInput()">⚡ Inputfile 📁</button>
+                 <button class="glass-btn btn-radical-red" onclick="triggerFileInput()">⚡ Inputfile 📁</button>
                 <input type="file" id="file-input" onchange="handleFileInput(event)">
             </div>
         </div>
@@ -445,7 +468,7 @@
         
         <div class="header">
             <button class="back-btn" onclick="returnToDashboardAndSave()">⚡ Terminal Break</button>
-            <div class="logo" id="active-project-title">MATRIXCODE // PIPELINE</div>
+            <div class="logo" id="active-project-title">MATRIXCODE // <span>PIPELINE</span></div>
             <div class="header-controls-right">
                 <button class="eye-toggle-btn" onclick="toggleZenFocusMode(true)" title="Enter Pure Immersive View">
                     <div class="hacker-badge"><div class="skull-eyes"><span></span><span></span></div></div>
@@ -476,6 +499,8 @@
                     <div class="editor-wrapper-inner">
                         <div id="editor-highlight-layer" class="highlight-backdrop"></div>
                         <textarea id="main-editor" wrap="off" spellcheck="false" oninput="liveExecutionEngine()" onscroll="syncHighlightScrollLayer()"></textarea>
+
+                        <div id="suggestion-box"></div>
                     </div>
                 </div>
             </div>
@@ -502,6 +527,7 @@
         const tabBar = document.getElementById("tab-bar-container");
         const searchBar = document.getElementById("code-search-bar");
         const searchBadge = document.getElementById("search-results-badge");
+        const suggestionBox = document.getElementById("suggestion-box");
 
         window.onload = () => {
             generateBinaryRainMatrix();
@@ -714,12 +740,10 @@
             setupWorkspaceTabsAndEditors();
         }
 
-        /* Escape helper for regex parser */
         function escapeHtmlTokens(text) {
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
-        /* CHANGED: Line-by-Line Checker with Glowing Yellow Full-Width Row Highlighter */
         function searchWordLineTrace(shouldScroll = false) {
             const query = searchBar.value;
             const editorText = mainEditor.value;
@@ -739,12 +763,11 @@
                 let currentLineText = lines[i];
                 
                 if (currentLineText.toLowerCase().includes(query.toLowerCase())) {
-                    matchingLines.push(i + 1); // Exact line position tracer rule
+                    matchingLines.push(i + 1); 
                     if (firstMatchLineIndex === -1) {
                         firstMatchLineIndex = i;
                     }
                     
-                    // Agar text line empty nahi hai, toh use poori tareeqe se span yellow structure me dalo
                     if(currentLineText.trim() !== "") {
                         let escapedLine = escapeHtmlTokens(currentLineText);
                         processedLines.push(`<span class="line-match-highlight">${escapedLine}</span>`);
@@ -761,7 +784,6 @@
                 searchBadge.style.color = "var(--neon-gold)";
                 searchBadge.innerHTML = `Found on lines: ${matchingLines.join(', ')}`;
                 
-                // AUTO SCROLL VIEW: Instantly scroll to the exact found line
                 if (shouldScroll && firstMatchLineIndex !== -1) {
                     const approximateLineHeight = 16.7; 
                     mainEditor.scrollTop = firstMatchLineIndex * approximateLineHeight;
@@ -771,11 +793,9 @@
                 searchBadge.innerHTML = "No matches found";
             }
 
-            // Highlighting block rendering container push
             highlightLayer.innerHTML = processedLines.join('\n');
         }
 
-        /* Sync scrolling layers */
         function syncHighlightScrollLayer() {
             highlightLayer.scrollTop = mainEditor.scrollTop;
             highlightLayer.scrollLeft = mainEditor.scrollLeft;
@@ -871,7 +891,221 @@
             lineCounter.innerHTML = nums;
         }
 
+        /* ==================================
+           MATRIX SMART TEMPLATE ENGINE
+        ================================== */
+        const smartTemplates = {
+            html:{
+                html:`<!DOCTYPE html>\n<html>\n<head>\n    <title>My Website</title>\n</head>\n<body>\n\n</body>\n</html>`,
+                div:`<div>\n    \n</div>`,
+                button:`<button>Click Me</button>`,
+                ul:`<ul>\n    <li></li>\n</ul>`,
+                img:`<img src="" alt="">`,
+                a:`<a href=""></a>`,
+                input:`<input type="text" placeholder="">`,
+                form:`<form>\n\n</form>`,
+                script:`<script>\n\n<\/script>`,
+                style:`<style>\n\n</style>`,
+                canvas:`<canvas id="game"></canvas>`
+            },
+            css:{
+                display:`display: flex;`,
+                position:`position: relative;`,
+                background:`background: #111;`,
+                color:`color: white;`,
+                width:`width: 100%;`,
+                height:`height: 100vh;`,
+                margin:`margin: 0;`,
+                padding:`padding: 0;`,
+                border:`border: 1px solid #fff;`,
+                animation:`animation: glow 1s infinite;`,
+                transform:`transform: scale(1);`,
+                flex:`display:flex;\njustify-content:center;\nalign-items:center;`
+            },
+            js:{
+                function:`function myFunction(){\n\n}`,
+                const:`const element = document.getElementById("");`,
+                let:`let value = 0;`,
+                queryselector:`document.querySelector("");`,
+                addevent:`element.addEventListener("click", ()=>{\n\n});`,
+                timeout:`setTimeout(()=>{
+
+},1000);`,
+                interval:`setInterval(()=>{\n\n},1000);`,
+                fetch:`fetch("")\n.then(res => res.json())\n.then(data => {\n    \n});`,
+                log:`console.log("");`
+            }
+        };
+
+        mainEditor.addEventListener("input", handleSuggestionEngine);
+
+        mainEditor.addEventListener("keydown", function(e){
+            const items = document.querySelectorAll(".suggestion-item");
+
+            if(suggestionBox.style.display === "block"){
+                if(e.key === "ArrowDown"){
+                    e.preventDefault();
+                    selectedSuggestionIndex++;
+                    if(selectedSuggestionIndex >= items.length) selectedSuggestionIndex = 0;
+                    updateSuggestionSelection(items);
+                }
+                if(e.key === "ArrowUp"){
+                    e.preventDefault();
+                    selectedSuggestionIndex--;
+                    if(selectedSuggestionIndex < 0) selectedSuggestionIndex = items.length - 1;
+                    updateSuggestionSelection(items);
+                }
+                if(e.key === "Enter" && items.length > 0){
+                    e.preventDefault();
+                    items[selectedSuggestionIndex].click();
+                    return;
+                }
+                if(e.key === "Escape"){
+                    suggestionBox.style.display = "none";
+                }
+            }
+            if (e.key !== "Enter") {
+                autoPairSystem(e);
+            }
+        });
+
+        function autoPairSystem(e){
+            const pairs = { "(": ")", "{": "}", "[": "]", '"': '"', "'": "'" };
+            
+            // Fixed Backspace crash handler
+            if (e.key === "Backspace") {
+                const start = mainEditor.selectionStart;
+                const charBefore = mainEditor.value.charAt(start - 1);
+                const charAfter = mainEditor.value.charAt(start);
+                if (pairs[charBefore] && pairs[charBefore] === charAfter) {
+                    e.preventDefault();
+                    mainEditor.value = mainEditor.value.substring(0, start - 1) + mainEditor.value.substring(start + 1);
+                    mainEditor.selectionStart = start - 1;
+                    mainEditor.selectionEnd = start - 1;
+                    liveExecutionEngine();
+                }
+                return;
+            }
+
+            if(pairs[e.key]){
+                e.preventDefault();
+                const start = mainEditor.selectionStart;
+                const end = mainEditor.selectionEnd;
+                const before = mainEditor.value.substring(0,start);
+                const after = mainEditor.value.substring(end);
+
+                mainEditor.value = before + e.key + pairs[e.key] + after;
+                mainEditor.selectionStart = start + 1;
+                mainEditor.selectionEnd = start + 1;
+                liveExecutionEngine();
+            }
+        }
+
+        function getCurrentEditorType(){
+            if(!activeProject || activeProject.lang !== "hybrid") return "js";
+            return activeProject.currentTab;
+        }
+
+        function handleSuggestionEngine(){
+            const cursorPos = mainEditor.selectionStart;
+            const textBefore = mainEditor.value.substring(0, cursorPos);
+            const currentWord = textBefore.split(/[^a-zA-Z0-9_-]+/).pop().toLowerCase();
+
+            if(currentWord.length < 1){
+                suggestionBox.style.display = "none";
+                return;
+            }
+
+            const currentType = getCurrentEditorType();
+            const templateSet = smartTemplates[currentType] || {};
+            const matched = Object.keys(templateSet).filter(word => word.startsWith(currentWord));
+
+            renderSuggestions(matched, currentWord);
+        }
+
+        function renderSuggestions(list, currentWord){
+            suggestionBox.innerHTML = "";
+            selectedSuggestionIndex = 0;
+
+            if(list.length === 0){
+                suggestionBox.style.display = "none";
+                return;
+            }
+
+            // DYNAMIC POSITIONING FIX
+            const caretPos = getCaretCoordinates(mainEditor, mainEditor.selectionStart);
+            suggestionBox.style.top = (caretPos.top + 20) + "px";
+            suggestionBox.style.left = (caretPos.left + 30) + "px";
+            suggestionBox.style.display = "block";
+
+            list.slice(0,8).forEach((item,index) => {
+                const div = document.createElement("div");
+                div.className = "suggestion-item";
+                if(index === 0) div.style.background = "rgba(255,42,42,0.25)";
+                div.innerText = item;
+                div.onclick = () => insertSuggestion(item, currentWord);
+                suggestionBox.appendChild(div);
+            });
+        }
+
+        function updateSuggestionSelection(items){
+            items.forEach(item=> { item.style.background = ""; });
+            if(items[selectedSuggestionIndex]){
+                items[selectedSuggestionIndex].style.background = "rgba(255,42,42,0.25)";
+            }
+        }
+
+        function insertSuggestion(text, currentWord){
+            const currentType = getCurrentEditorType();
+            const templateSet = smartTemplates[currentType] || {};
+            const finalCode = templateSet[text] || text;
+            const cursorPos = mainEditor.selectionStart;
+
+            const before = mainEditor.value.substring(0, cursorPos - currentWord.length);
+            const after = mainEditor.value.substring(cursorPos);
+
+            mainEditor.value = before + finalCode + after;
+            mainEditor.focus();
+
+            const emptyLineIndex = finalCode.indexOf("\n");
+            let newCursorPosition;
+            if(emptyLineIndex !== -1){
+                newCursorPosition = before.length + emptyLineIndex + 1;
+            }else{
+                newCursorPosition = before.length + finalCode.length;
+            }
+
+            mainEditor.selectionStart = newCursorPosition;
+            mainEditor.selectionEnd = newCursorPosition;
+            suggestionBox.style.display = "none";
+            liveExecutionEngine();
+        }
+
+        // DYNAMIC POSITION CALCULATOR ENGINE
+        function getCaretCoordinates(element, position) {
+            const clone = document.createElement('div');
+            const styles = window.getComputedStyle(element);
+            for (let prop of styles) { clone.style[prop] = styles[prop]; }
+            clone.style.position = 'absolute';
+            clone.style.visibility = 'hidden';
+            clone.style.whiteSpace = 'pre-wrap';
+            clone.style.wordWrap = 'break-word';
+            
+            const text = element.value.substring(0, position);
+            clone.textContent = text;
+            
+            const span = document.createElement('span');
+            span.textContent = element.value.substring(position) || '.';
+            clone.appendChild(span);
+            
+            document.body.appendChild(clone);
+            const { offsetTop: top, offsetLeft: left } = span;
+            document.body.removeChild(clone);
+            
+            return { top: top - element.scrollTop, left: left - element.scrollLeft };
+        }
+
         mainEditor.addEventListener('scroll', syncHighlightScrollLayer);
     </script>
 </body>
-</html><script></script></body></html><script></script></body></html>
+</html><script></script></body></html>
