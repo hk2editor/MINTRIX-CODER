@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html>
+<!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html><html><head><style></style></head><body><!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
@@ -470,6 +470,8 @@
             <button class="back-btn" onclick="returnToDashboardAndSave()">⚡ Terminal Break</button>
             <div class="logo" id="active-project-title">MATRIXCODE // <span>PIPELINE</span></div>
             <div class="header-controls-right">
+                <button class="glass-btn" onclick="manualRunCode()">▶ RUN</button>
+
                 <button class="eye-toggle-btn" onclick="toggleZenFocusMode(true)" title="Enter Pure Immersive View">
                     <div class="hacker-badge"><div class="skull-eyes"><span></span><span></span></div></div>
                 </button>
@@ -1106,6 +1108,32 @@
         }
 
         mainEditor.addEventListener('scroll', syncHighlightScrollLayer);
+   function manualRunCode() {
+
+    if(!activeProject) return;
+
+    // Latest editor code save karo
+    if(activeProject.lang === 'hybrid') {
+
+        if(activeProject.currentTab === 'html') {
+            activeProject.codeHTML = mainEditor.value;
+        }
+
+        else if(activeProject.currentTab === 'css') {
+            activeProject.codeCSS = mainEditor.value;
+        }
+
+        else {
+            activeProject.codeJS = mainEditor.value;
+        }
+
+    } else {
+        activeProject.code = mainEditor.value;
+    }
+
+    // Ab run karo
+    liveExecutionEngine();
+}
     </script>
 </body>
-</html><script></script></body></html>
+</html><script></script></body></html><script></script></body></html><script></script></body></html>
