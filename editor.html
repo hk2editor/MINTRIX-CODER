@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MatrixCode - Advanced Neon Glass IDE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="dashboard" id="dashboard-node">
+        <div class="dash-header">
+            <div class="dash-title">MATRIX<span>CODER</span> v0.2</div>
+            <div class="dash-controls">
+                <button class="glass-btn" onclick="openCreateModal()">+ New Node</button>
+                <button class="glass-btn" onclick="triggerFileInput()">⚡ Import</button>
+                <input type="file" id="file-input" onchange="handleFileInput(event)">
+            </div>
+        </div>
+        <div class="project-grid" id="project-grid-container"></div>
+    </div>
+
+    <div class="modal-overlay" id="modal-node">
+        <div class="modal-box">
+            <div class="form-group">
+                <label>Project Name</label>
+                <input type="text" id="modal-project-name" class="form-control" placeholder="Project Name">
+            </div>
+            <div class="form-group">
+                <label>Ecosystem Runtime</label>
+                <select id="modal-project-lang" class="form-control">
+                    <option value="hybrid">Hybrid Matrix (HTML+CSS+JS)</option>
+                    <option value="py">Python Engine (.py)</option>
+                    <option value="js">JavaScript Runtime (.js)</option>
+                </select>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:8px;">
+                <button class="glass-btn" onclick="closeCreateModal()">Abort</button>
+                <button class="glass-btn" onclick="createProjectPipeline()">Deploy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-app-shell" id="app-shell-node" style="display: none;">
+        <div class="header">
+            <button class="back-btn" onclick="returnToDashboardAndSave()">✕ Save & Exit</button>
+            <div class="logo" id="active-project-title">MATRIXCODE</div>
+            <button class="glass-btn" onclick="toggleZenFocusMode(true)">👁 ZEN</button>
+        </div>
+        <div class="floating-zen-eye" onclick="toggleZenFocusMode(false)">👁</div>
+        <div class="workspace">
+            <div class="preview-container">
+                <iframe id="preview" class="preview-box"></iframe>
+                <div id="terminal-console" class="terminal-box"></div>
+            </div>
+            <div class="editor-container">
+                <div class="tab-bar">
+                    <div class="tabs-left" id="tab-bar-container"></div>
+                    <div class="search-container">
+                        <input type="text" id="code-search-bar" class="cyber-search-input" placeholder="🔍 Find..." oninput="searchWordLineTrace()">
+                        <div id="search-results-badge" class="search-results-log"></div>
+                    </div>
+                </div>
+                <div class="editor-box">
+                    <div class="line-numbers" id="line-counter"></div>
+                    <div class="editor-wrapper-inner">
+                        <div id="editor-highlight-layer" class="highlight-backdrop"></div>
+                        <textarea id="main-editor" wrap="off" spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Boot loader configuration for direct index view
+        window.addEventListener("DOMContentLoaded", () => {
+            renderDashboardGrid();
+        });
+    </script>
+</body>
+</html>
